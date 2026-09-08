@@ -1,6 +1,6 @@
 """SQLite persistence helpers for graph cleanup.
 
-Persistence is "HOW" (Synterex Engineering Handbook Section 12.5), so the
+Persistence is "HOW" (Engineering Handbook Section 12.5), so the
 SQL lives here in helpers rather than on the entity class in
 base-tdb-models. ``GraphModel`` stays a pure entity definition.
 """
