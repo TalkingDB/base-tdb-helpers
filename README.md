@@ -6,6 +6,11 @@ Shared building blocks for TalkingDB services: the job store, file storage, auth
 ![Python 3.12 or 3.13](https://img.shields.io/badge/python-3.12%20%7C%203.13-3776AB)
 ![Import path: talkingdb.helpers](https://img.shields.io/badge/import-talkingdb.helpers-555)
 
+<p align="center">
+  <img src="docs/images/demo.gif" alt="A short animated tour of base-tdb-helpers: what it is, how to start, and which page to read next">
+</p>
+<p align="center"><sub>A short tour: what it is, how to start, and what to read next.</sub></p>
+
 | Start here | Go deeper |
 | :--- | :--- |
 | [What it is](#what-it-is) | [Architecture: every helper and what it touches](docs/architecture.md) |
@@ -99,6 +104,12 @@ workspace/
 ## Code contributor
 
 mayank.g@smarter.codes
+
+## Support TalkingDB
+
+If base-tdb-helpers saved you time, please [give it a star](https://github.com/TalkingDB/base-tdb-helpers) ⭐. Stars help other developers find the project.
+
+Found a bug, or a document it gets wrong? [Open an issue](https://github.com/TalkingDB/base-tdb-helpers/issues/new). We are always here to help and open to a conversation. Explore the TalkingDB applications at [talkingdb.io](https://talkingdb.io/#applications).
 
 ## License
 
