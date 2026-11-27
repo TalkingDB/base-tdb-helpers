@@ -7,9 +7,9 @@ Shared building blocks for TalkingDB services: the job store, file storage, auth
 ![Import path: talkingdb.helpers](https://img.shields.io/badge/import-talkingdb.helpers-555)
 
 <p align="center">
-  <img src="docs/images/demo.gif" alt="A short animated tour of base-tdb-helpers: what it is, how to start, and which page to read next">
+  <img src="docs/images/demo.gif" alt="Animated demo of a real run of the job store: one document goes from QUEUED to COMPLETED and a late failure cannot overwrite it; one is cancelled while running, so finishing it records CANCELLED; one is cancelled while queued">
 </p>
-<p align="center"><sub>A short tour: what it is, how to start, and what to read next.</sub></p>
+<p align="center"><sub>A real run of <code>talkingdb.helpers.job.store</code> at <code>573c16d</code> against SQLite, 27 Nov 2026.</sub></p>
 
 | Start here | Go deeper |
 | :--- | :--- |
