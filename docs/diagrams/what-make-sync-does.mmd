@@ -1,0 +1,12 @@
+flowchart TB
+    accTitle: What make sync does
+    accDescr: The script reads git-packages.json. In local mode it writes path dependencies to sibling folders. In git mode it reads the HEAD commit of each sibling checkout, or the remote HEAD if the folder is missing, and writes that commit as the pin. In dry run it prints the change and exits with code 1.
+    S["make sync MODE=..."] --> R["read git-packages.json"]
+    R --> M{"MODE"}
+    M -- local --> L["dep = { path = '../base-tdb-models', develop = true }"]
+    M -- git --> HEAD["read HEAD of ../base-tdb-models<br>(remote HEAD if folder missing)"]
+    HEAD --> G["dep = { git = '...', rev = 'that HEAD commit' }"]
+    L --> W{"--dry-run?"}
+    G --> W
+    W -- yes --> P["print diff, exit 1 if any change"]
+    W -- no --> U["write pyproject.toml"]

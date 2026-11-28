@@ -1,0 +1,10 @@
+flowchart LR
+    accTitle: Where base-tdb-helpers fits
+    accDescr: base-tdb-helpers sits between the base models and clients below it and the TalkingDB services above it. It writes jobs and namespaces to SQLite and original files to MinIO.
+    M["base-tdb-models"] --> H["base-tdb-helpers"]:::here
+    C["base-tdb-clients"] --> H
+    H --> TTT["module-ttt<br>(jobs, files, auth)"]
+    H --> PKG["package-* services<br>(namespaces, requests)"]
+    H --> DB[("SQLite<br>jobs, namespaces, projects")]
+    H -. "if configured" .-> MIN[("MinIO<br>original files")]
+    classDef here stroke-width:3px

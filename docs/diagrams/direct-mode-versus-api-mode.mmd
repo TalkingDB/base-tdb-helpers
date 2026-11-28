@@ -1,0 +1,6 @@
+flowchart LR
+    accTitle: Direct mode versus API mode
+    accDescr: In direct mode the caller imports the other package and calls its functions in the same process. In API mode the caller sends HTTP requests to a deployed copy of that service.
+    A["Caller"] --> Q{"CLIENT_MODE"}
+    Q -- "direct (default)" --> F["import and call<br>in the same process"]
+    Q -- "api" --> HTTP["HTTP to a deployed service<br>(host from env)"]

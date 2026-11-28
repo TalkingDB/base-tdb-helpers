@@ -1,0 +1,23 @@
+sequenceDiagram
+    accTitle: Helpers used during one document upload
+    accDescr: A client uploads a file with an API key. The service checks the key, checks type and size, spools the upload to disk, hashes and stores the original in MinIO, records a job, and later updates progress and finalizes the job. The client polls the job until it is terminal.
+    autonumber
+    participant Client
+    participant Service as module-ttt
+    participant H as base-tdb-helpers
+    participant DB as SQLite
+    participant S3 as MinIO
+    Client->>Service: POST /v1/documents (Bearer API key)
+    Service->>H: verify_api_key()
+    H->>DB: look up hashed key in api_keys
+    Service->>H: validate_file_type(), assert_content_length_within_cap()
+    Service->>H: assert_spool_capacity(), write upload to spool
+    Service->>H: compute_sha256(), upload_file(channel, hash)
+    H-->>S3: put object (only if configured)
+    Service->>H: job store insert() as QUEUED
+    H->>DB: jobs row
+    Service-->>Client: 202 Accepted, job_id
+    Note over Service,H: worker: mark_ongoing(), update_progress(), finalize()
+    Client->>Service: GET /v1/jobs/{job_id}
+    Service->>H: get(job_id)
+    Service-->>Client: state, stage, percent
