@@ -1,4 +1,7 @@
-from fastapi import Depends, HTTPException, status
+import os
+import secrets
+
+from fastapi import Depends, Header, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from talkingdb.clients.sqlite import sqlite_conn, GRAPH_DB
 from talkingdb.models.auth.api_key import APIKeyModel
@@ -28,6 +31,30 @@ def verify_api_key(
             },
         )
     return user_email
+
+
+def verify_service_secret(
+    x_service_secret: str = Header(default="", alias="X-Service-Secret"),
+) -> None:
+    expected = os.getenv("TRUSTED_SERVICE_SECRET")
+
+    if not expected:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={
+                "error_code": "SERVICE_UNAVAILABLE",
+                "message": "Service-to-service authentication is not configured",
+            },
+        )
+
+    if not x_service_secret or not secrets.compare_digest(x_service_secret, expected):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail={
+                "error_code": "UNAUTHORIZED",
+                "message": "Invalid service credential",
+            },
+        )
 
 
 def hash_password(password: str) -> str:
